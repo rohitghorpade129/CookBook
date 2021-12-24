@@ -6,7 +6,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("the Favorites"),
+      child: Text("the Favorites",style: TextStyle(color: Colors.black),),
     );
   }
 }
