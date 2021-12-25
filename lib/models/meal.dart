@@ -27,6 +27,7 @@ final bool isLactoseFree;
 final bool isVegan;
 final bool isVegetarian;
 
+
  const Meal({
   @required this.id,
   @required this.categories,
@@ -41,5 +42,6 @@ final bool isVegetarian;
   @required this.isLactoseFree,
   @required this.isVegan,
   @required this.isVegetarian,
+  
 });
 }
