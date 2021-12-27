@@ -19,9 +19,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
  @override
   void initState() {
-    // TODO: implement initState
+    
     pages=[{'page':CategoryScreen(),'title':'Categories'},
-  {'page':FavoritesScreen(widget.favorites),'title':'Favorites'}];
+          {'page':FavoritesScreen(widget.favorites),'title':'Favorites'}];
     super.initState();
   }
 

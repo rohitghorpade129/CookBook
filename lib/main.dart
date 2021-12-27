@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
  void setfilters(Map<String,bool>filterData){
    setState(() {
      filters=filterData;
-     
+
      availiableMeals=DUMMY_MEALS.where((meal) {
        if(filters['gluten'] && !meal.isGlutenFree){
          return false;
@@ -46,6 +46,25 @@ class _MyAppState extends State<MyApp> {
        return true;
      }).toList();
    });
+ }
+
+ void togglefavorite(String mealid){
+   final existingIndex=Favorites.indexWhere((meal)=>meal.id==mealid);
+   if (existingIndex>=0){
+     setState(() {
+       Favorites.removeAt(existingIndex);
+     });
+   }
+   else{
+     setState(() {
+       Favorites.add(DUMMY_MEALS.firstWhere((meal) => meal.id==mealid));
+     });
+
+   }
+ }
+
+ bool isMealFavorite(String id){
+   return Favorites.any((meal) => meal.id==id);
  }
 
   @override
@@ -76,38 +95,26 @@ class _MyAppState extends State<MyApp> {
       routes: {
       '/':(ctx)=>TabsScreen(Favorites),
        CategoryMealsScreen.RouteName:(ctx)=> CategoryMealsScreen(availiableMeals),
-       MealDetailscreen.routeName:(ctx)=> MealDetailscreen(),
+       MealDetailscreen.routeName:(ctx)=> MealDetailscreen(togglefavorite,isMealFavorite),
        FilterScreen.routeName:(ctx)=>FilterScreen(setfilters,filters),
-       
+
       },
-      // onGenerateRoute: (settings){
-      //   print(settings.arguments);
-      //   //return MaterialPageRoute(builder: (ctx) => CategoryScreen(),);
-      // },
-      // onUnknownRoute:(settings){
-      //   print("Page Not Found!!!");
-      //   return MaterialPageRoute(builder: (ctx) => CategoryScreen(),);
-      // } ,
-    );
-  } 
-}
 
-class MyHomePage extends StatefulWidget {
-    @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('DeliMeals'),
-      ),
-      body: Center(
-        child: Text('Navigation Time!'),
-      ),
+       
+       onGenerateRoute: (settings) {
+        print(settings.arguments);
+        // if (settings.name == '/meal-detail') {
+        //   return ...;
+        // } else if (settings.name == '/something-else') {
+        //   return ...;
+        // }
+        // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (ctx) => CategoryScreen(),
+        );
+      },
     );
   }
 }

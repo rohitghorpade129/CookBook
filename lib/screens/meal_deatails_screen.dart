@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '/dummy_data.dart';
 class MealDetailscreen extends StatelessWidget {
   static const routeName='/meal-detail';
+  final Function toggleFav;
+  final Function isfav;
+  const MealDetailscreen(this.toggleFav,this.isfav) ;
 
     
   Widget buildSectionTitle (BuildContext context ,String ext){
@@ -32,7 +35,8 @@ class MealDetailscreen extends StatelessWidget {
     final mealid = ModalRoute.of(context).settings.arguments as String;
     final selectMeal=DUMMY_MEALS.firstWhere((meal )=> mealid == meal.id);
     return Scaffold(
-      appBar: AppBar(title: Text(selectMeal.title),),
+      appBar: AppBar(title: Text(selectMeal.title),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children:<Widget> [
@@ -77,10 +81,9 @@ class MealDetailscreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.delete),
-        onPressed: (){
-          Navigator.of(context).pop(mealid);
-        },
+        child:Icon(
+        isfav(mealid) ? Icons.star : Icons.star_border_sharp),
+        onPressed:()=> toggleFav(mealid),
       ),
     );
   }

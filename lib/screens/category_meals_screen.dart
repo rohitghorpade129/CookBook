@@ -6,7 +6,7 @@ import '../models/meal.dart';
 class CategoryMealsScreen extends StatefulWidget {
   // final String  categoryId;
   // final String Categorytitle;
-  static const RouteName=':/Category-meals';
+  static const RouteName='/Category-meals';
   final List<Meal> availiablemeals;
 
   CategoryMealsScreen(this.availiablemeals);
@@ -60,7 +60,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
         duration: displayedMeals[index].duration,
         affordability: displayedMeals[index].affordability,
         complexity: displayedMeals[index].complexity,
-        remove: removeMeal,
+        
         );
 
       },
